@@ -2,10 +2,17 @@
 {"text":"This is another message.","date":"2020-05-15T02:05:15.596Z"}
 {"text":"test post message","date":"2020-05-15T02:05:15.596Z"}
 {"text":"test2","date":"2020-05-15T02:05:15.596Z"}
-{"text":"test post message twice over","date":"2020-05-15T02:05:15.596Z"}
+{"text":"test post message twice over","date":"2020-05-15T02:05:15.596Z","room":"room 2"}
 {"text":"test test test","date":"2020-05-30T01:55:09.316Z"}
-{"text":"testing again","date":"2020-05-30T01:56:40.975Z","room":"room 1"}
-{"text":"testing again","date":"2020-05-30T01:56:40.975Z","room":"room 2"}
-{"text":"afdafdas","date":"2020-05-30T02:32:28.979Z"}
-{"text":"","date":"2020-05-30T03:49:31.353Z"}
-{"text":"fadfadfafdafda","date":"2020-05-30T04:26:21.985Z"}
+{"text":"this is room 1","date":"2020-05-30T01:56:40.975Z","room":"room 1"}
+{"text":"this is room 2","date":"2020-05-30T01:56:40.975Z","room":"room 2"}
+{"text":"this room is for BRANDON","date":"2020-05-30T01:56:40.975Z","room":"room 1"}
+
+{"text":"welcome to brandons room ","date":"2020-06-02T02:41:12.561Z","room":"brandons room"}
+{"text":"","date":"2020-06-02T02:43:01.763Z","room":"austens room"}
+{"text":"","date":"2020-06-02T02:43:51.348Z","room":"brandons room"}
+{"text":"","date":"2020-06-02T02:43:51.348Z","room":"austens room"}
+{"text":"this is a test again\n","date":"2020-06-02T02:45:42.614Z","room":"austens room"}
+{"text":"this is a test again\n","date":"2020-06-02T02:45:42.614Z","room":"brandons room"}
+{"text":"this is the final test ","date":"2020-06-02T02:46:58.253Z","room":"austens room"}
+{"text":"this is the final room ","date":"2020-06-02T02:46:58.253Z","room":"brandons room"}
