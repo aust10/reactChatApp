@@ -36,6 +36,7 @@ io.on('connection', (socket) => {
   console.log('a user connected')
 
   socket.on('chat message', (msg) => {
+    console.log(msg, 'this is msg on server')
     io.emit('chat message', msg)
     fs.appendFile(messagesPath, '\n' + JSON.stringify(msg), err => err ? console.log(err) : null)
   })
@@ -44,5 +45,5 @@ io.on('connection', (socket) => {
     console.log('user disconnected')
   })
 })
-
-app.listen(port, () => console.log('serving on port 8000'))
+// changed from app to http for socket
+http.listen(port, () => console.log('serving on port 8000'))

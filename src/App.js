@@ -1,27 +1,14 @@
-import React from 'react'
-// import socket from 'socket.io-client'
+// eslint-disable-next-line
+import React, {component} from 'react'
+// import io from 'socket.io-client'
 import './App.css'
+// const io = require('socket.io-client')
+import io from 'socket.io-client'
+import GetRooms from './components/getrooms'
+import Chat from './components/chatdisplay'
 
-function GetRooms (props) {
-  const rooms = props.messages.map(msg => msg.room)
-  const filtered = rooms.filter(room => room)
-  const simplified = Array.from(new Set(filtered))
-  console.log(simplified, 'this is the rooms')
-  return <select onInput={props.handle} value={props.room}>
-    <option value=''>--Select a Room--</option>
-    {simplified.map(room => <option key={room} value={room}>{room}</option>)}
-  </select>
-}
-
-function Chat (props) {
-  const message = props.messages.filter(msg => msg.room === props.room)
-  console.log(message, 'this is the chat message')
-  // const filtered = message.filter(msg => msg.room === room)
-  return <div class='roomChat'>
-    <ul>
-      {message.map(message => <li key={message}><span>{message.text}</span></li>)}
-    </ul></div>
-}
+const socket = io()
+console.log(socket, 'this is socket')
 
 class App extends React.Component {
   constructor (props) {
@@ -31,7 +18,7 @@ class App extends React.Component {
       nick: '',
       time: new Date(),
       room: '',
-      value: '',
+      value: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -44,6 +31,10 @@ class App extends React.Component {
   }
 
   componentDidMount () {
+    socket.on('chat message', msg => {
+      console.log('Got a message:', msg)
+      this.setState({ messages: this.state.messages.concat(msg) })
+    })
     fetch('/messages')
       .then(response => response.json())
       .then(data => {
@@ -71,23 +62,26 @@ class App extends React.Component {
     event.preventDefault()
     console.log(this.state.value)
     const message = { text: this.state.value, date: this.state.time, room: this.state.room }
-    this.setState({ messages: this.state.messages.concat(message) })
+    // this.setState({ messages: this.state.messages.concat(message) })
+
+    // first line of socket
+    socket.emit('chat message', message)
     console.log(message)
  
-    fetch('/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ text: this.state.value, date: this.state.time, room: this.state.room })
-    })
-      .then(data => {
-        console.log('Success:', data)
-      })
-      .then(this.state.value = '')
-      .catch((error) => {
-        console.error('Error:', error)
-      })
+    // fetch('/messages', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ text: this.state.value, date: this.state.time, room: this.state.room })
+    // })
+    //   .then(data => {
+    //     console.log('Success:', data)
+    //   })
+    //   .then(this.state.value = '')
+    //   .catch((error) => {
+    //     console.error('Error:', error)
+    //   })
     // this.setState({ messages: this.state.messages.concat(message) })
     // socket.emit('chat message', message)
   }
@@ -98,16 +92,12 @@ class App extends React.Component {
       <div className='App'>
         <div id='chat-container' />
         <button onClick={() => this.addRoom()}>Add Room</button>
-        <p>{this.state.room}</p>
         <GetRooms messages={this.state.messages} room={this.state.room} handle={this.handleInput.bind(this)} />
-        <Chat messages={this.state.messages} room={this.state.room} />
         <form id='send-message' onSubmit={this.handleSubmit}>
           <textarea id='message-text' value={this.state.value} onChange={this.handleChange} placeholder='message...' />
           <button type='submit'>Send</button>
         </form>
-        {/* <div>
-          {this.state.messages.map((message, i) => <li key={i}>{(new Date(message.date)).toLocaleString()} ~ {message.text}</li>)}
-        </div> */}
+        <Chat messages={this.state.messages} room={this.state.room} />
       </div>
     )
   }
