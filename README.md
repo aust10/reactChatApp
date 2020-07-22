@@ -1,4 +1,5 @@
 ### Chat Room App
+This can be found at http://209.151.157.48
 
 # Build Steps
 * First run npm i to install all dependencies. You may also need to do this in the client-react directory (since create-react-app creates its own package.json with its own dependencies).
